@@ -1,0 +1,69 @@
+// Shows: Stage 5 (Control Flow and User Input).
+
+print "--- Control Flow & User Input ---";
+
+// If-Then-Else statement
+var condition_met = 20;
+if (condition_met > 15) {
+    print "Condition met."; // Expected: Condition met.
+} else {
+    print "Condition not met.";
+}
+
+var another_condition = false;
+if (another_condition) {
+    print "This won't print.";
+} else {
+    print "Else branch executed."; // Expected: Else branch executed.
+}
+
+// Nested If-Then-Else
+var user_level = 7;
+if (user_level >= 10) {
+    print "High level user.";
+} else {
+    if (user_level >= 5) {
+        print "Mid level user."; // Expected: Mid level user.
+        if (user_level < 8) {
+            print "Still growing."; // Expected: Still growing.
+        }
+    } else {
+        print "Low level user.";
+    }
+}
+
+// While loop
+print "Simple while loop:";
+var count = 0;
+while (count < 3) {
+    print "Loop count: " + count; // Expected: Loop count: 0, 1, 2
+    count = count + 1;
+}
+print "Loop finished. Count: " + count; // Expected: Loop finished. Count: 3
+
+// Nested While loops
+print "Nested while loop:";
+var outer_i = 0;
+while (outer_i < 2) {
+    print "Outer i: " + outer_i;
+    var inner_j = 0;
+    while (inner_j < 2) {
+        print "  Inner j: " + inner_j;
+        inner_j = inner_j + 1;
+    }
+    outer_i = outer_i + 1;
+}
+
+// User Input
+print "User Input Test:";
+var user_name = input("Please enter your name: ");
+print "Hello, " + user_name + "!"; // Expected: (prints Hello, <your_input>!)
+
+var confirm = input("Confirm (yes/no)? ");
+if (confirm == "yes") {
+    print "Confirmed!";
+} else {
+    print "Cancelled!";
+}
+
+print "--- End Control Flow & User Input ---";

@@ -1,0 +1,31 @@
+// Showcases: Stage 2 (Boolean Logic) and Stage 3 (Text Values).
+
+print "--- Booleans & Text Values ---";
+
+// Stage 2: Boolean Logic
+print true and false;             // Expected: false
+print (10 > 5) or false;          // Expected: true
+print !(5 == 5);                  // Expected: false
+print 10 != 5;                    // Expected: true
+print (2 + 2 == 4) and (true != false); // Expected: true
+print (0) or (false);             // Expected: false (0 is falsey)
+print ("") or ("hello");          // Expected: hello (non-empty string is truthy)
+
+// Stage 3: Text Values
+print "Hello" + " " + "World!"; // Expected: Hello World!
+print "My age is " + 30;       // Expected: My age is 30 (relaxed + operator)
+print "test" == "test";        // Expected: true
+print "case" != "Case";        // Expected: true
+
+// Text with escape sequences
+print "New line: \nNext line";
+print "Tab: \tIndented";
+print "Quotes: \"A quoted string\"";
+print "Backslash: \\Path\\To\\File";
+
+// Mixed type interactions (strict equality)
+print 1 == "1";                 // Expected: false
+print true == "true";           // Expected: false
+print nil == 0;                 // Expected: false
+
+print "--- End Booleans & Text Values ---";

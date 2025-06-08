@@ -1,0 +1,75 @@
+// Tests: Stage 6 (Functions and Local Variables).
+
+print "--- Functions & Scope Tests ---";
+
+// Simple function declaration and call
+fun greet_user() {
+    print "Hello from a function!";
+}
+greet_user(); // Expected: Hello from a function!
+
+// Function with parameters and local scope
+fun calculate_and_display_area(length, width) {
+    var area = length * width; // 'area' is local to this function
+    print "Area calculated: " + area;
+    // print "local_var_outside_func: " + local_var_outside_func; // This would be a Runtime Error
+}
+calculate_and_display_area(10, 5); // Expected: Area calculated: 50
+calculate_and_display_area(2.5, 4.0); // Expected: Area calculated: 10.0
+
+// Function modifying global variable
+var global_counter = 100;
+print "Global counter before func call: " + global_counter; // Expected: 100
+fun increment_global_counter() {
+    global_counter = global_counter + 1; // Modifies the global_counter
+    print "Global counter inside func: " + global_counter;
+}
+increment_global_counter(); // Expected: Global counter inside func: 101
+print "Global counter after func call: " + global_counter; // Expected: Global counter after func call: 101
+
+// Function parameter shadowing global variable
+var shadow_me = "GLOBAL_VALUE";
+print "Global shadow_me before func: " + shadow_me; // Expected: GLOBAL_VALUE
+fun test_shadowing_param(shadow_me) { // 'shadow_me' here is a local parameter
+    print "Local param shadow_me: " + shadow_me; // Expected: Local param shadow_me: LOCAL_ARG
+    shadow_me = "MODIFIED_LOCAL_ARG"; // Modifies the local parameter, not the global
+    print "Local param shadow_me (modified): " + shadow_me; // Expected: Local param shadow_me (modified): MODIFIED_LOCAL_ARG
+}
+test_shadowing_param("LOCAL_ARG");
+print "Global shadow_me after func: " + shadow_me; // Expected: Global shadow_me after func: GLOBAL_VALUE (unaffected)
+
+// Nested functions (calls)
+fun inner_helper() {
+    print "  -- Running inner helper.";
+}
+fun outer_processor() {
+    print "Outer processor started.";
+    inner_helper(); // Call a function from within another function
+    print "Outer processor finished.";
+}
+outer_processor(); // Expected: Outer processor started., -- Running inner helper., Outer processor finished.
+
+// Functions interacting with lists
+fun process_list_in_func(my_list_param) {
+    print "List inside func (before mod): " + my_list_param;
+    list_append(my_list_param, "new_item_from_func");
+    list_remove_at(my_list_param, 0);
+    print "List inside func (after mod): " + my_list_param;
+}
+var shopping_list_func = ["bread", "milk", "eggs"];
+process_list_in_func(shopping_list_func); // List passed by reference
+print "Shopping list after func call: " + shopping_list_func; // Expected: [milk, eggs, new_item_from_func]
+
+// Input() within a function
+fun get_input_and_process() {
+    var user_input_val = input("Enter a word: ");
+    print "Word entered: " + user_input_val;
+    if (user_input_val == "secret") {
+        print "Secret word matched!";
+    } else {
+        print "Word not secret.";
+    }
+}
+get_input_and_process(); // Will prompt for input
+
+print "--- End Functions & Scope Tests ---";

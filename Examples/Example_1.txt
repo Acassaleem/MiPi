@@ -1,0 +1,30 @@
+// showcases: Stage 1 (Basic Calculator) and Stage 4 (Global Data - basic aspects).
+
+print "--- Arithmetic & Global Variables ---";
+
+// Stage 1: Basic Arithmetic
+print 10 + 5 * 2 - (30 / 6); // Expected: 15
+print -10 + (20 / (5 - 3)); // Expected: 0
+print 1.5 + 2.5 * 3.0;     // Expected: 9.0
+print (1 + 2) * (3 + 4); // Expected: 21
+
+// Stage 4: Global Variable Declaration and Assignment
+var num_one = 10;
+var num_two = 5;
+var result = num_one + num_two; // result = 15
+print "Result of num_one + num_two: " + result; // Expected: Result of num_one + num_two: 15
+
+num_one = num_one * 2; // num_one becomes 20
+result = num_one - num_two; // result = 20 - 5 = 15
+print "New result: " + result; // Expected: New result: 15
+
+var pi_val = 3.14;
+var radius = 5;
+var area = pi_val * (radius * radius); // area = 3.14 * 25 = 78.5
+print "Area of circle: " + area; // Expected: Area of circle: 78.5
+
+// Test uninitialized variable (should be nil)
+var uninitialized_var;
+print "Uninitialized var: " + uninitialized_var; // Expected: Uninitialized var: nil
+
+print "--- End Arithmetic & Global Variables ---";

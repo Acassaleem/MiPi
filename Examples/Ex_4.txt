@@ -1,0 +1,42 @@
+// Tests: Stage 6 (List Data Structure).
+
+print "--- List Data Structure Tests ---";
+
+// List Literals
+var empty_list = [];
+var numbers_list = [10, 20, 30, 40];
+var mixed_data_list = ["apple", 123, true, nil, [5, 6]];
+print "Empty: " + empty_list; // Expected: Empty: []
+print "Numbers: " + numbers_list; // Expected: Numbers: [10, 20, 30, 40]
+print "Mixed: " + mixed_data_list; // Expected: Mixed: [apple, 123, true, nil, [5, 6]]
+
+// Random Access (Reading)
+print "First element (numbers_list): " + numbers_list[0]; // Expected: First element (numbers_list): 10
+print "Third element (mixed_data_list): " + mixed_data_list[2]; // Expected: Third element (mixed_data_list): true
+print "Nested list element: " + mixed_data_list[4][1]; // Expected: Nested list element: 6
+
+// Random Assignment (Writing)
+mixed_data_list[0] = "orange";
+mixed_data_list[3] = false;
+mixed_data_list[4][0] = 50;
+print "Modified mixed_data_list: " + mixed_data_list; // Expected: Modified mixed_data_list: [orange, 123, true, false, [50, 6]]
+
+// List Concatenation (+)
+var list1 = [1, 2];
+var list2 = ["a", "b"];
+var combined_list = list1 + list2;
+print "Combined list: " + combined_list; // Expected: Combined list: [1, 2, a, b]
+
+// list_append built-in
+list_append(numbers_list, 50);
+print "numbers_list after append: " + numbers_list; // Expected: numbers_list after append: [10, 20, 30, 40, 50]
+list_append(mixed_data_list, "new_item");
+print "mixed_data_list after append: " + mixed_data_list; // Expected: mixed_data_list after append: [orange, 123, true, false, [50, 6], new_item]
+
+// list_remove_at built-in
+list_remove_at(numbers_list, 1); // Remove 20
+print "numbers_list after remove_at(1): " + numbers_list; // Expected: numbers_list after remove_at(1): [10, 30, 40, 50]
+list_remove_at(mixed_data_list, 0); // Remove "orange"
+print "mixed_data_list after remove_at(0): " + mixed_data_list; // Expected: mixed_data_list after remove_at(0): [123, true, false, [50, 6], new_item]
+
+print "--- End List Data Structure Tests ---";
