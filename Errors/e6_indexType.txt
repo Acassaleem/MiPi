@@ -1,0 +1,5 @@
+// 8. List Index Non-Integer Type
+var index_type_test_list = [1, 2];
+print "Expecting: Runtime error: Index must be an integer";
+print index_type_test_list[true]; // This line will cause a Runtime Error
+print "--- Stage 6 List Index Type Test FINISHED ---";

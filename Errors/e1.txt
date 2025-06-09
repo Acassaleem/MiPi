@@ -1,0 +1,10 @@
+// Comprehensive Error Testing
+// This file tests specific error conditions for each stage of the language.
+// The interpreter stops on the first runtime error, so uncomment lines one by one to test.
+// Broken down into seperate files for increased ease of testing
+
+print "--- Testing Stage 1: Basic Calculator Errors ---";
+// 1. Division by Zero
+print "Expecting: Runtime error: Division by zero";
+print 10 / 0; // This line will cause a Runtime Error
+print "--- Stage 1 Error Test FINISHED (This won't print if error occurred) ---"; // This line is here to illustrate that if the error occurred the next line won't run.

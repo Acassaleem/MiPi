@@ -1,0 +1,6 @@
+print "--- Testing Stage 2: Boolean Logic Errors ---";
+// 2. Comparison/Arithmetic Type Mismatch (e.g., trying to compare non-numbers)
+// (Note: Basic logical operators 'and', 'or', '!' rely on truthiness, so they don't error on non-booleans)
+print "Expecting: Runtime error: Operands of '>' must be numbers";
+print 10 > "five"; // This line will cause a Runtime Error
+print "--- Stage 2 Error Test FINISHED ---";

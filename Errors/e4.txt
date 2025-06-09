@@ -1,0 +1,5 @@
+print "--- Testing Stage 4: Global Data Errors ---";
+// 4. Undefined Variable Access
+print "Expecting: Runtime error: Undefined variable 'non_existent_var'";
+print non_existent_var; // This line will cause a Runtime Error
+print "--- Stage 4 Error Test FINISHED ---";

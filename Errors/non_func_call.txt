@@ -1,0 +1,5 @@
+// 10. Calling Non-Callable Type
+var not_a_func_var = 123;
+print "Expecting: Runtime error: Not a callable type";
+not_a_func_var(); // This line will cause a Runtime Error
+print "--- Stage 6 Not Callable Test FINISHED ---";

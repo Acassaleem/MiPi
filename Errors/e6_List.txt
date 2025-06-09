@@ -1,0 +1,6 @@
+print "--- Testing Stage 6: List Data Structure Errors ---";
+// 6. List Index Out of Bounds (Reading)
+var oob_list = [10, 20];
+print "Expecting: Runtime error: List index out of bounds";
+print oob_list[2]; // This line will cause a Runtime Error (index 2 is out of bounds for [0,1])
+print "--- Stage 6 List OOB Read Test FINISHED ---";

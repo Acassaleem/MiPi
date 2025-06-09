@@ -1,0 +1,5 @@
+print "--- Testing Stage 3: Text Values Errors ---";
+// 3. String Concatenation Type Mismatch (e.g., number + boolean)
+print "Expecting: Runtime error: Operands of '+' must be two numbers, two strings or two lists";
+print 10 + true; // This line will cause a Runtime Error
+print "--- Stage 3 Error Test FINISHED ---";

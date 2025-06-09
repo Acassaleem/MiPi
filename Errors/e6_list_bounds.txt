@@ -1,0 +1,5 @@
+// 7. List Index Out of Bounds (Assignment)
+var oob_assign_list = [100, 200];
+print "Expecting: Runtime error: List index out of bounds";
+oob_assign_list[2] = 300; // This line will cause a Runtime Error
+print "--- Stage 6 List OOB Assign Test FINISHED ---";

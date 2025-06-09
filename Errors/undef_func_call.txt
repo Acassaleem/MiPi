@@ -1,0 +1,4 @@
+// 11. Undefined Function Call (similar to undefined variable)
+print "Expecting: Runtime error: Undefined variable 'undefined_function_name'";
+undefined_function_name(); // This line will cause a Runtime Error
+print "--- Stage 6 Undefined Func Test FINISHED ---";

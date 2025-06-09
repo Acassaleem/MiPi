@@ -1,0 +1,6 @@
+print "--- Testing Stage 6: Function-Based Code Reusability Errors ---";
+// 9. Function Argument Count Mismatch
+fun test_args_count(a, b) { print a + b; }
+print "Expecting: Runtime error: Expected 2 arguments but got 1 for function 'test_args_count'";
+test_args_count(5); // This line will cause a Runtime Error
+print "--- Stage 6 Func Arity Test FINISHED ---";

@@ -1,0 +1,11 @@
+// 5. Redefining a variable in the same scope
+var already_defined_var = 1;
+print "Expecting: Runtime error: Variable 'already_defined_var' already defined in this scope.";
+var already_defined_var = 2; // This line will cause a Runtime Error
+print "--- Stage 4 Redefine Error Test FINISHED ---";
+
+
+print "--- Testing Stage 5: Control Flow Errors (Implicitly Tested through stages) ---";
+// Stage 5 errors are usually parsing errors (e.g., mismatched braces) or
+// runtime errors from conditions based on types (already covered by Stage 2/3/4 errors).
+// The interpreter will stop on the first error, so explicit tests here might not be reached.
