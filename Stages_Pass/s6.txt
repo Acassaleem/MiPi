@@ -1,0 +1,140 @@
+// Stage 6: List Data Structure and Function-Based Code Reusability
+// Tests list creation, access, modification, built-ins, and function declarations/calls.
+// Combines all previous stage features.
+
+print "--- Stage 6: Lists and Functions Tests ---";
+
+// List Literals and Printing:
+var empty_list = [];
+var mixed_list = [1, "two", true, nil, 3.14, [10, 20]];
+print "Empty list: " + empty_list; // Expected: Empty list: []
+print "Mixed list: " + mixed_list; // Expected: Mixed list: [1, two, true, nil, 3.14, [10, 20]]
+
+// List indexing (reading and assignment):
+print "mixed_list[0]: " + mixed_list[0];        // Expected: mixed_list[0]: 1
+print "Nested list element: " + mixed_list[5][0]; // Expected: Nested list element: 10
+mixed_list[1] = "NEW_TEXT";
+mixed_list[5][1] = 200;
+print "Modified mixed_list: " + mixed_list;     // Expected: Modified mixed_list: [1, NEW_TEXT, true, nil, 3.14, [10, 200]]
+
+// List concatenation:
+var list_a = [10, 20];
+var list_b = ["three", 4];
+var combined_list = list_a + list_b;
+print "Concatenated list: " + combined_list; // Expected: Concatenated list: [10, 20, three, 4]
+
+// list_append built-in:
+list_append(list_a, 30);
+print "list_a after append: " + list_a; // Expected: list_a after append: [10, 20, 30]
+list_append(list_a, "final");
+print "list_a after append: " + list_a; // Expected: list_a after append: [10, 20, 30, final]
+
+// list_remove_at built-in:
+list_remove_at(list_a, 1); // Remove 20
+print "list_a after remove_at(1): " + list_a; // Expected: list_a after remove_at(1): [10, 30, final]
+list_remove_at(list_a, 0); // Remove 10
+print "list_a after remove_at(0): " + list_a; // Expected: list_a after remove_at(0): [30, final]
+
+print "--- Stage 6: Function-Based Code Reusability Tests ---";
+
+// Simple function declaration and call:
+fun greet_func() {
+    print "Hello from a function!";
+}
+greet_func(); // Expected: Hello from a function!
+
+// Function with parameters:
+fun multiply_and_print(x, y) {
+    var product = x * y;
+    print "Product: " + product;
+}
+multiply_and_print(5, 4);   // Expected: Product: 20
+multiply_and_print(2.5, 2); // Expected: Product: 5.0
+
+// Function scope and global variable interaction:
+var global_func_test = 100;
+fun modify_and_print(val) {
+    var local_in_func = "local_value";
+    print "Inside func - param: " + val;
+    print "Inside func - local: " + local_in_func;
+    global_func_test = global_func_test + val; // Modify global variable
+    print "Inside func - global (modified): " + global_func_test;
+}
+modify_and_print(50); // global_func_test becomes 150
+print "Outside func - global: " + global_func_test; // Expected: 150
+
+// Function parameter shadowing:
+var shadow_test_var = "GLOBAL_SHADOW";
+fun test_shadow(shadow_test_var) { // Parameter 'shadow_test_var' shadows the global variable
+    print "Local shadow_test_var: " + shadow_test_var; // Expected: Local shadow_test_var: LOCAL_PASSED
+    shadow_test_var = "MODIFIED_LOCAL_PARAM"; // Modifies the local parameter
+    print "Local shadow_test_var (modified): " + shadow_test_var; // Expected: Local shadow_test_var (modified): MODIFIED_LOCAL_PARAM
+}
+test_shadow("LOCAL_PASSED");
+print "Global shadow_test_var after call: " + shadow_test_var; // Expected: Global shadow_test_var after call: GLOBAL_SHADOW (unaffected)
+
+// Function calling other functions:
+fun inner_func_call() {
+    print "  Inner function executed.";
+}
+fun outer_func_call() {
+    print "Outer function executing...";
+    inner_func_call(); // Call inner function
+    print "Outer function finished.";
+}
+outer_func_call(); // Expected: Outer function executing..., Inner function executed., Outer function finished.
+
+// Interaction between functions and lists:
+fun process_my_list(target_list) {
+    print "List before func processing: " + target_list;
+    list_remove_at(target_list, 0); // Remove first item
+    list_append(target_list, "func_appended"); // Append new item
+    print "List after func processing: " + target_list;
+}
+var my_process_list = ["item1", "item2"];
+process_my_list(my_process_list); // Pass by reference (like Python lists)
+print "Final list after func call: " + my_process_list; // Expected: Final list after func call: [item2, func_appended]
+
+// Input() within a function:
+fun get_user_data_func() {
+    var data = input("Please enter some data: ");
+    print "Data received: " + data;
+}
+get_user_data_func(); // Will prompt for input
+
+// --- Comprehensive Error Tests (Uncomment lines one by one to test) ---
+print "--- Beginning Error Tests (Uncomment lines in file to test) ---";
+
+// Arithmetic Type Mismatch
+// print 10 + true; // Expected: Runtime error: Operands of '+' must be two numbers, two strings or two lists
+
+// Division by Zero
+// print 10 / 0; // Expected: Runtime error: Division by zero
+
+// Undefined Variable
+// print non_existent_var; // Expected: Runtime error: Undefined variable 'non_existent_var'
+
+// List Index Out of Bounds (Reading)
+// var oob_list = [1, 2];
+// print oob_list[2]; // Expected: Runtime error: List index out of bounds
+
+// List Index Out of Bounds (Assignment)
+// var oob_assign_list = [1, 2];
+// oob_assign_list[2] = 3; // Expected: Runtime error: List index out of bounds
+
+// List Index Type Mismatch
+// var index_type_test_list = [1, 2];
+// print index_type_test_list[true]; // Expected: Runtime error: Index must be an integer
+
+// Function Argument Count Mismatch
+// fun test_args_count(a, b) { print a + b; }
+// test_args_count(5); // Expected: Runtime error: Expected 2 arguments but got 1 for function 'test_args_count'.
+
+// Calling Non-Callable Type
+// var not_a_func_var = 123;
+// not_a_func_var(); // Expected: Runtime error: Not a callable type
+
+// Undefined Function Call
+// undefined_function_name(); // Expected: Runtime error: Undefined variable 'undefined_function_name'
+
+print "--- End Error Tests ---";

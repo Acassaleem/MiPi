@@ -1,0 +1,51 @@
+// Stage 5 (60-70%): Control Flow - Basic If-Then and While loops.
+// Tests fundamental conditional execution and repetition.
+
+print "--- Stage 5: Control Flow (Basic) Tests ---";
+
+// If-Then statements:
+print "If-then tests:";
+if (true) {
+    print "This always prints."; // Expected: This always prints.
+}
+if (false) {
+    print "This never prints.";
+}
+if (10 * 2 > 15) { // Expression as condition
+    print "Complex if condition met."; // Expected: Complex if condition met.
+}
+if ("hello") { // Non-empty string is truthy
+    print "Non-empty string is truthy."; // Expected: Non-empty string is truthy.
+}
+if (0) { // 0 is falsey
+    print "Zero is falsey (won't print).";
+}
+
+// While loops:
+print "While loop tests:";
+var counter = 0;
+while (counter < 3) {
+    print "Counter is: " + counter; // Expected: Counter is: 0, 1, 2
+    counter = counter + 1;
+}
+print "Loop finished. Counter: " + counter; // Expected: Loop finished. Counter: 3
+
+// User input and simple loop interaction (shopping list simplified from brief):
+print "Shopping List Interaction (Simplified):";
+var is_running_shop = true;
+var shopping_list_str = "";
+
+while (is_running_shop == true) { // Original brief example includes this structure
+    var item = input("Add item (or press Enter to finish): ");
+
+    if (item == "") { // Original brief example includes this check
+        is_running_shop = false;
+        print "Finishing input loop."; // Added confirmation message
+    } else {
+        if (shopping_list_str != "") {
+            shopping_list_str = shopping_list_str + ", ";
+        }
+        shopping_list_str = shopping_list_str + item;
+    }
+}
+print "Final shopping list: " + shopping_list_str; // Expected: (depends on user input)

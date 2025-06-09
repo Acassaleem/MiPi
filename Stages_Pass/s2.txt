@@ -1,0 +1,48 @@
+// Stage 2: Boolean Logic
+// Tests boolean literals, comparison, equality, and logical operators.
+
+
+print "--- Stage 2: Boolean Logic Tests ---";
+
+// Original brief examples:
+print true == false;            // Expected: false
+print true != false;            // Expected: true
+print (5 < 10);                 // Expected: true
+print !(5 - 4 > 3 * 2 == !false); // Expected: true
+print true and true;            // Expected: true
+print false and true;           // Expected: false
+print (0 < 1) or false;         // Expected: true
+print false or false;           // Expected: false
+
+// Additional comparison and equality tests:
+print 10 >= 10;                 // Expected: true
+print 20 <= 15;                 // Expected: false
+print 5 == 5;                   // Expected: true
+print 5 != 10;                  // Expected: true
+print 7 == 7.0;                 // Expected: true (value equality for floats)
+print 1 == 0;                   // Expected: false
+
+// Additional logical tests:
+print !true;                    // Expected: false
+print !false;                   // Expected: true
+print (true or false) and (10 == 10); // Expected: true
+print !true or false;           // Expected: false
+print !(false and true);        // Expected: true
+
+// Truthiness tests:
+print "Truthiness tests:";
+print (0) or (false);           // Expected: false (0 is falsey)
+print ("") or ("hello");        // Expected: hello (non-empty string is truthy, short-circuits)
+print ([]) or ([1]);            // Expected: [1] (empty list falsey, non-empty truthy)
+print nil or true;              // Expected: true (nil is falsey)
+print !nil;                     // Expected: true (nil is falsey)
+print 10 and true;              // Expected: true (non-zero number truthy)
+
+// Strict type equality tests:
+print "Strict type equality tests:";
+print 1 == "1";                 // Expected: false
+print true == "true";           // Expected: false
+print nil == 0;                 // Expected: false
+print [1] == [1];               // Expected: true
+print [1] == [2];               // Expected: false
+print "a" == "a";               // Expected: true

@@ -1,0 +1,36 @@
+// Stage 3: Text Values
+// Tests string literals, concatenation, and equality/inequality.
+
+print "--- Stage 3: Text Values Tests ---";
+
+// Original brief examples:
+print "hello" + " " + "world";         // Expected: hello world
+print "foo" + "bar" == "foobar";       // Expected: true
+print "10 corgis" != "10" + "corgis"; // Expected: true ("10 corgis" != "10corgis")
+
+// Additional string concatenation tests (relaxed + operator):
+print "My age is " + 30 + ".";          // Expected: My age is 30.
+print "Result: " + (5 * 2);             // Expected: Result: 10
+print "Boolean: " + true;               // Expected: Boolean: true
+print "Nil value: " + nil;              // Expected: Nil value: nil
+print "List: " + [1, "a", true];        // Expected: List: [1, a, true]
+
+// Additional string equality/inequality tests (strict type equality):
+print "apple" == "orange";              // Expected: false
+print "123" != 123;                     // Expected: true
+print "true" == true;                   // Expected: false
+
+// String indexing (advanced, covers random access for strings):
+print "First char: " + "abc"[0];        // Expected: First char: a
+print "Last char: " + "xyz"[2];         // Expected: Last char: z
+// print "Out of bounds: " + "abc"[3]; // Expected: Runtime Error: Index out of bounds
+
+// Escape sequence tests:
+print "New line: \nNext line";
+print "Tab: \tIndented";
+print "Quotes: \"A quoted string\"";
+print "Backslash: \\Path\\To\\File";
+print "Carriage return: \rOverwritten"; // Expected: Overwritten (visual effect due to \r)
+print "Null char: \0End of string";    // Expected: Null char: End of string
+
+print "--- End Stage 3 Tests ---";

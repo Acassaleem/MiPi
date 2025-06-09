@@ -1,0 +1,86 @@
+// Stage 5.2 (70-80%): Control Flow - If-Then-Else and Nested Loops/Conditionals.
+// Tests advanced conditional execution and repetition.
+
+print "--- Stage 5: Control Flow (Advanced) Tests ---";
+
+// If-Then-Else statements:
+print "If-then-else tests:";
+var value = 10;
+if (value > 5) {
+    print "Value is greater than 5."; // Expected: Value is greater than 5.
+} else {
+    print "Value is not greater than 5 (won't print).";
+}
+
+var other_value = 3;
+if (other_value > 5) {
+    print "Other value is greater than 5 (won't print).";
+} else {
+    print "Other value is not greater than 5."; // Expected: Other value is not greater than 5.
+}
+
+// Nested If-Then-Else statements:
+print "Nested If-then-else tests:";
+var temperature = 25;
+if (temperature > 30) {
+    print "It's very hot!";
+} else { // First else branch
+    if (temperature > 20) { // Nested if
+        print "It's warm."; // Expected: It's warm.
+        if (temperature < 28) { // Deeply nested if
+            print "Not too hot."; // Expected: Not too hot.
+        } else {
+            print "Getting hot!";
+        }
+    } else { // Nested else
+        print "It's cold.";
+    }
+}
+
+// Nested While loops:
+print "Nested While loop tests:";
+var outer_count = 0;
+while (outer_count < 2) {
+    print "Outer loop iteration: " + outer_count;
+    var inner_count = 0;
+    while (inner_count < 2) {
+        print "  Inner loop iteration: " + inner_count;
+        inner_count = inner_count + 1;
+    }
+    outer_count = outer_count + 1;
+}
+print "Nested loops finished."; // Expected: Nested loops finished.
+
+// Complex interaction (adventure game pseudo-code from brief)
+print "Adventure Game Simulation:";
+var game_active = true;
+var player_hp = 10;
+print "HP: " + player_hp;
+
+while (game_active) {
+    var action = input("Action ('attack', 'heal', 'quit'): ");
+
+    if (action == "attack") {
+        player_hp = player_hp - 3;
+        print "Attacked! HP: " + player_hp;
+        if (player_hp <= 0) {
+            print "You are defeated! Game Over.";
+            game_active = false;
+        }
+    } else if (action == "heal") { // This demonstrates the else-if pattern
+        player_hp = player_hp + 2;
+        if (player_hp > 10) { // Cap HP
+            player_hp = 10;
+        }
+        print "Healed! HP: " + player_hp;
+    } else if (action == "quit") { // Another else-if
+        game_active = false;
+        print "Quitting game.";
+    } else {
+        print "Invalid action.";
+    }
+    if (game_active) {
+        print "Current HP: " + player_hp;
+    }
+}
+print "Game ended.";
