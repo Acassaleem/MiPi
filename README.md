@@ -4,6 +4,76 @@
 
 MyPi is a dynamically-typed, imperative programming language, implemented as a tree-walking interpreter in Python. It's designed for simplicity and clarity, allowing users to write and execute basic programs involving arithmetic, boolean logic, strings, lists, variables, control flow, and functions.
 
+## Features:
+## Core Language Features (Stages 1-5 Complete):
+
+### Stage 1. Numbers:
+* Support for integers and floating-point values.
+* Binary arithmetic: addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).
+* Unary negation (`-`).
+* Parentheses for grouping expressions.
+
+### Stage 2. Booleans:
+* `true` and `false` literals.
+* Binary comparison: greater than (`>`), greater than or equal to (`>=`), less than (`<`), less than or equal to (`<=`) for numbers.
+* Binary equality (`==`) and inequality (`!=`) for numbers, booleans, strings, and lists (strict type equality).
+* Logical operators: `AND` (`and`), `OR` (`or`), `NOT` (`!`).
+* Truthiness: `nil`, `false`, `0`, `0.0`, empty string (`""`), and empty list (`[]`) are considered falsey; all other values are truthy.
+
+### Stage 3. Strings (Text Values):
+* String literals enclosed in double quotes (`""`).
+* Binary concatenation (`+`) for strings (automatic conversion of numbers, booleans, lists, nil to string if concatenated with a string).
+* String equality (`==`) and inequality (`!=`).
+* Escape sequences: `\n`, `\t`, `\"`, `\\`, `\r`, `\0`.
+* String indexing (read-only random access) like `"abc"[0]`.
+
+### Stage 4. Global Data (Variables):
+* Variable declaration (`var` keyword).
+* Variable assignment (`=`).
+* Persistence of variable values across the program's execution.
+* All operations from Stages 1-3 compose with global variables.
+* Efficient variable lookup (average O(1) time complexity using hash maps).
+
+### Stage 5. Control Flow:
+* If-then statements.
+* If-then-else statements.
+* Nested if-then-else statements.
+* While loops.
+* Nested while loops.
+* Code blocks (`{}`) for grouping statements and defining scope.
+
+###User Input:
+* `input(prompt_string)` built-in function to read user input.
+
+---
+
+## Additional Features (Stage 6 Complete):
+
+### List Data Structure:
+* List literals (`[]`).
+* Random access by index (`myList[index]`) for both reading and assignment.
+* List concatenation (`list1 + list2`).
+* `list_append(list_obj, value)` built-in function for back-insertion.
+* `list_remove_at(list_obj, index)` built-in function for random removal.
+
+### Function-Based Code Reusability:
+* Function declaration (`fun name(params) { body }`).
+* Function calling (`name(args)`).
+* Parameters create local variables within function scope.
+* Functions support lexical scoping (closures).
+
+### Local Variables:
+* Variables declared within code blocks (`{}`) or function bodies are local to that scope.
+* Correct handling of variable shadowing.
+
+---
+
+## Error Handling & Robustness:
+
+* Runtime errors for type mismatches (e.g., non-numeric operands for arithmetic), division by zero, undefined variables, list index out of bounds, calling non-callable types, incorrect function argument counts, and variable redefinition in the same scope.
+* Single-line comments (`//`).
+* Statement termination with semicolons (`;`).
+
 ## 1. How to Run MyPi Programs
 
 ### 1.1. Prerequisites
