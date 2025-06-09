@@ -1,0 +1,60 @@
+https://github.com/Acassaleem/MiPi
+- For better view of documentation visit the link above.
+
+
+How to Run MyPi Language Interpreter
+
+MyPi is a Python-based interpreter, so it does not require traditional "building" (compiling). You just need Python installed.
+
+---
+
+1.  **Software Needed:**
+    * **Python 3.12:** This specific version was used for development.
+
+2.  **Project Setup:**
+    * Unzip the MyPi project folder to your computer.
+    * Open your terminal or command prompt.
+    * Go into the unzipped project folder. (This folder contains `main.py` and other `.py` files).
+
+        Example:
+        ```bash
+        cd C:\Users\YourUser\Downloads\MyPi
+        ```
+
+        * **Create Virtual Environment (Recommended):**
+        This step creates an isolated Python environment for your project.
+        ```bash
+        python -m venv .venv
+        ```
+
+    * **Activate Virtual Environment:**
+        You must activate the virtual environment *before* running `main.py` in the same terminal session.
+        * **Windows (PowerShell):**
+            ```bash
+            .\.venv\Scripts\Activate.ps1
+            ```
+        * **Linux / macOS (Bash):**
+            ```bash
+            source ./.venv/bin/activate
+            ```
+        Your terminal prompt should change (e.g., `(.venv) PS C:\Users\...>`) to indicate the virtual environment is active.
+
+3.  **Run MyPi Code:**
+    * Use the `python` command to run `main.py`, and give it your MyPi code file.
+
+        Example:
+        ```bash
+        python main.py examples/my_program.txt
+        ```
+        (Replace `examples/my_program.txt with your actual file path).
+
+    * The interpreter will run your code. Output from `print` statements will show in the terminal. If your code uses `input()`, the terminal will ask for your input.
+
+---
+
+**Troubleshooting:**
+* **"No such file or directory"**: Make sure you are in the correct folder where `main.py` is.
+* **"charmap' codec error"**: Your `.mipi` file has hidden characters. Open it in a text editor (like VS Code), resave it as **UTF-8**, and replace any fancy quotes (`“ ”`) with simple ones (`" "`).
+* **"Runtime error"**: Your MyPi code itself has an error. The message will tell you what happened and on what line.
+
+
