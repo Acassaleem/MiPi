@@ -136,3 +136,20 @@ The `examples/` directory contains several  `.txt` source files demonstrating va
     * **Purpose:** Demonstrates **Function-Based Code Reusability** and **Local Variables** from **Stage 6: Additional Features**. It covers function declaration, calls, parameter passing, local scoping, global variable interaction, and shadowing.
     * **Key Features Demonstrated:** `fun` declaration, function calls, parameters, local variables, global variable modification from functions, variable shadowing.
 
+
+
+### 6. Development Testing Files (`Stage_Pass/sX.txt`)
+
+During the development process, a set of specific test files, named in the pattern `Stage_Pass/sX.txt` (e.g., `s1.txt`, `s2.txt`, `s3.txt`, `s4.txt`, `s5.txt`, `s5A.txt`, `s6.txt`), were created.
+
+These files serve as **demonstrations of each stage's successful implementation and full functionality.**
+
+-   **Purpose:** Each `sX.txt` file contains MyPi code specifically designed to thoroughly test all features introduced in its corresponding development stage (Stage X), encompassing all examples from the assignment brief.
+-   **Verification:** Upon execution, these files produced output that precisely matched the expected results for all features of that stage, providing concrete evidence of correct implementation.
+-   **Progress Tracking:** These files acted as crucial checkpoints, confirming the interpreter's ability to reliably process and execute language features up to that point before proceeding with the implementation of subsequent, more complex stages. They represent the "pass" state for each stage's requirements.
+
+**Example:**
+-   `s1.txt`  demonstrates the full functionality of the basic calculator from Stage 1.
+-   `s4.txt` verifies all aspects of global variable handling from Stage 4.
+-   `s5A.txt` showcases the complete implementation of advanced control flow features (nested `if`/`while`, `else if` structures) from Stage 5.
+-   `s6.txt`  showcases **Stage 6: Additional Features**, encompassing both the **List Data Structure** and **Function-Based Code Reusability**
