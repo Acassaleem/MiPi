@@ -1,0 +1,235 @@
+// ***************          Interactive_demo        ***********************
+// A comprehensive, interactive demo program for the MyPi Language Interpreter.
+// This program showcases features from all stages and explains the interpreter's
+// background processes using print statements and user input.
+
+// --- Helper Functions for Explanations ---
+
+fun explain_stage_intro(stage_num, stage_name) {
+    print "--- Entering Stage " + stage_num + ": " + stage_name + " Demo ---";
+    print "MyPi Interpreter is now processing code for this stage.";
+    print "--------------------------------------------------------";
+}
+
+fun explain_execution_step(message) {
+    print "-> INTERPRETER: " + message;
+}
+
+fun explain_data_structures_intro() {
+    print "MyPi manages variables using an 'Environment' (like a dictionary/hash map).";
+    print "It handles program structure using an Abstract Syntax Tree (AST).";
+}
+
+// --- Main Program Loop ---
+
+var running = true;
+var user_choice = "";
+
+explain_data_structures_intro();
+
+print "\n--- Welcome to the MyPi Interactive Demo! ---";
+print "Select a stage to demonstrate, or 'game' or 'quit'.";
+print "---------------------------------------------";
+print "1: Stage 1 (Basic Calculator)";
+print "2: Stage 2 (Boolean Logic)";
+print "3: Stage 3 (Text Values)";
+print "4: Stage 4 (Global Data & Local Scopes)";
+print "5: Stage 5 (Control Flow & Input)";
+print "6: Stage 6 (Lists & Functions)";
+print "game: Play a simple Adventure Game";
+print "quit: Exit the demo";
+print "---------------------------------------------";
+
+while (running) {
+    user_choice = input("Your choice: ");
+    print "---------------------------------------------";
+
+    if (user_choice == "1") {
+        explain_stage_intro("1", "Basic Calculator");
+        explain_execution_step("Lexer scans '10 + 5 * 2', creating tokens (NUMBER, PLUS, NUMBER, STAR, NUMBER).");
+        explain_execution_step("Parser builds an AST: Binary(10, +, Binary(5, *, 2)).");
+        explain_execution_step("Interpreter evaluates: 5*2=10, then 10+10=20.");
+        print "Result of 10 + 5 * 2: " + (10 + 5 * 2); // Expected: 20
+        print "---------------------------------------------";
+
+        explain_execution_step("Lexer scans '-3'. Parser builds Unary(-, 3).");
+        explain_execution_step("Interpreter evaluates: negates 3 to -3.");
+        print "Result of -3: " + (-3); // Expected: -3
+        print "---------------------------------------------";
+
+        explain_execution_step("Demonstrating parentheses for precedence: (10 - 2) / 4.");
+        explain_execution_step("Parser builds Grouping(Binary(10, -, 2)), then Binary(/, Grouping, 4).");
+        print "Result of (10 - 2) / 4: " + ((10 - 2) / 4); // Expected: 2.0
+        print "---------------------------------------------";
+
+    } else if (user_choice == "2") {
+        explain_stage_intro("2", "Boolean Logic");
+        explain_execution_step("Comparing 10 > 5. Interpreter evaluates both, then applies '>'.");
+        print "Result of 10 > 5: " + (10 > 5); // Expected: true
+        print "---------------------------------------------";
+
+        explain_execution_step("Testing 'true and false'. 'and' operator short-circuits if left is falsey.");
+        print "Result of true and false: " + (true and false); // Expected: false
+        print "---------------------------------------------";
+
+        explain_execution_step("Testing '0 or \"hello\"'. 'or' operator short-circuits if left is truthy, else returns right.");
+        explain_execution_step("MyPi considers 0 falsey. So it evaluates and returns right operand.");
+        print "Result of 0 or \"hello\": " + (0 or "hello"); // Expected: hello
+        print "---------------------------------------------";
+
+        explain_execution_step("Testing '!nil'. '!' operator negates based on truthiness.");
+        explain_execution_step("MyPi considers 'nil' falsey. So !nil is 'not false' -> true.");
+        print "Result of !nil: " + (!nil); // Expected: true
+        print "---------------------------------------------";
+
+    } else if (user_choice == "3") {
+        explain_stage_intro("3", "Text Values (Strings)");
+        explain_execution_step("String literals recognized by Lexer. They are stored as Python strings.");
+        print "String literal: " + "Hello MyPi!"; // Expected: Hello MyPi!
+        print "---------------------------------------------";
+
+        explain_execution_step("Concatenation: '\"Hello \" + 123'. MyPi's '+' converts numbers to strings if one operand is string.");
+        print "Result of concat: " + ("Hello " + 123); // Expected: Hello 123
+        print "---------------------------------------------";
+
+        explain_execution_step("String indexing: '\"abcde\"[2]'. Retrieves character at index.");
+        print "Character at index 2: " + ("abcde"[2]); // Expected: c
+        print "---------------------------------------------";
+
+        explain_execution_step("Escape sequence: New line (\\n) and Tab (\\t). Lexer processes these.");
+        print "Escapes:\n\tNew Line and Tab"; // Expected: New line and Tab (formatted)
+        print "---------------------------------------------";
+
+    } else if (user_choice == "4") {
+        explain_stage_intro("4", "Global Data & Local Scopes");
+        explain_execution_step("Declaring 'global_test_var' using 'var'. It's stored in the global 'Environment'.");
+        var global_test_var = 10;
+        print "global_test_var: " + global_test_var; // Expected: 10
+        print "---------------------------------------------";
+
+        explain_execution_step("Assignment 'global_test_var = global_test_var + 5'. Interpreter looks up, adds, assigns back.");
+        global_test_var = global_test_var + 5;
+        print "global_test_var (updated): " + global_test_var; // Expected: 15
+        print "---------------------------------------------";
+
+        explain_execution_step("Entering a new code block '{ }'. A new local 'Environment' is created, enclosing the global one.");
+        { // Start of block
+            var local_in_block = "I'm local"; // Local var, defined in block's environment
+            print "Inside block: local_in_block is " + local_in_block; // Expected: I'm local
+            print "Inside block: global_test_var is " + global_test_var; // Expected: 15 (global accessible)
+            explain_execution_step("Shadowing: declaring 'global_test_var' locally. It creates a NEW local variable.");
+            var global_test_var = 20; // This shadows the global one
+            print "Inside block: global_test_var (local shadowed) is " + global_test_var; // Expected: 20
+        } // End of block
+        explain_execution_step("Exiting block. The local 'Environment' is popped. Global scope restored.");
+        print "Outside block: global_test_var (global) is " + global_test_var; // Expected: 15 (original global restored)
+        print "---------------------------------------------";
+
+
+    } else if (user_choice == "5") {
+        explain_stage_intro("5", "Control Flow & Input");
+        explain_execution_step("If-then-else: condition (10 > 5) is truthy. 'then' branch executes.");
+        if (10 > 5) {
+            print "  true branch executed."; // Expected: If-true branch executed.
+        } else {
+            print "  false branch executed.";
+        }
+        explain_execution_step("Else-if logic: nested 'if' in 'else' branch.");
+        var temp = 25;
+        if (temp > 30) {
+            print "  It's hot!";
+        } else {
+            if (temp > 20) {
+                print "  It's warm."; // Expected: It's warm.
+            } else {
+                print "  It's cold.";
+            }
+        }
+        print "---------------------------------------------";
+
+        explain_execution_step("While loop: 'counter < 2'. Interpreter checks condition, executes body, repeats.");
+        var loop_counter = 0;
+        while (loop_counter < 2) {
+            print "  Loop iteration: " + loop_counter; // Expected: Loop iteration: 0, 1
+            loop_counter = loop_counter + 1;
+        }
+        print "  Loop finished. Final count: " + loop_counter; // Expected: Loop finished. Final count: 2
+        print "---------------------------------------------";
+
+        explain_execution_step("Input() function: pauses execution, prompts user, returns string.");
+        var user_input_val = input("  Please enter any text here: "); // User will input
+        print "  You entered: " + user_input_val; // Expected: (prints user's input)
+        print "---------------------------------------------";
+
+    } else if (user_choice == "6") {
+        explain_stage_intro("6", "Lists & Functions (All Add-ons)");
+        explain_execution_step("List literal: [10, \"item\", true]. Creates a mutable list object.");
+        var my_list = [10, "item", true];
+        print "  Original list: " + my_list; // Expected: [10, item, true]
+        print "---------------------------------------------";
+
+        explain_execution_step("List Indexing: my_list[1] = \"UPDATED\". Modifies list in place.");
+        my_list[1] = "UPDATED";
+        print "  List after assignment: " + my_list; // Expected: [10, UPDATED, true]
+        print "---------------------------------------------";
+
+        explain_execution_step("Built-in list_append: list_append(my_list, \"new\"). Adds to end.");
+        list_append(my_list, "new");
+        print "  List after append: " + my_list; // Expected: [10, UPDATED, true, new]
+        print "---------------------------------------------";
+
+        explain_execution_step("Function Declaration: 'fun greet_func(name) { ... }'. Creates a callable object.");
+        fun greet_func(name) {
+            var func_local = "I'm a local in greet_func."; // Local to function
+            print "  Hello from func: " + name + "! " + func_local;
+        }
+        explain_execution_step("Function Call: 'greet_func(\"MyPi User\")'. New environment for call, params bound.");
+        greet_func("MyPi User"); // Expected: Hello from func: MyPi User! I'm a local in greet_func.
+        print "---------------------------------------------";
+
+    } else if (user_choice == "game") {
+        print "--- Starting MyPi Adventure Game Demo! ---";
+        print "Type 'attack' to reduce HP, 'heal' to gain HP, 'quit' to exit game.";
+        print "---------------------------------------------";
+        var game_active = true;
+        var player_hp = 10;
+        print "Current HP: " + player_hp;
+
+        while (game_active) {
+            var action = input("Action ('attack', 'heal', 'quit'): ");
+
+            if (action == "attack") {
+                player_hp = player_hp - 3;
+                print "  You attacked! HP: " + player_hp;
+                if (player_hp <= 0) {
+                    print "  Game Over! You were defeated.";
+                    game_active = false;
+                }
+            } else if (action == "heal") {
+                player_hp = player_hp + 2;
+                if (player_hp > 10) { // Cap HP
+                    player_hp = 10;
+                }
+                print "  You healed! HP: " + player_hp;
+            } else if (action == "quit") {
+                game_active = false;
+                print "  Quitting game.";
+            } else {
+                print "  Invalid action. Try 'attack', 'heal', or 'quit'.";
+            }
+            if (game_active) {
+                print "  Current HP: " + player_hp;
+            }
+        }
+        print "--- Game Over ---";
+        print "---------------------------------------------";
+
+    } else if (user_choice == "quit") {
+        print "Exiting MyPi Interactive Demo. Goodbye!";
+        running = false;
+    } else {
+        print "Invalid choice. Please enter 1-6, 'game', or 'quit'.";
+        print "---------------------------------------------";
+    }
+}
+print "Demo session ended.";

@@ -1,0 +1,288 @@
+// Game_Updated.mipi
+// Enhanced Adventure Game Demo for MyPi Language.
+// Fixed to work without a 'list_length' built-in, using fixed-size inventory and manual iteration.
+// NOW FIXED FOR NO EXPLICIT RETURN STATEMENTS.
+
+// --- Helper Functions for Game Logic (MOVED TO TOP FOR DECLARATION ORDER) ---
+
+var GLOBAL_LAST_LOOKUP_RESULT_NAME = "UNDEFINED_LOOKUP"; // Global variable to store results from functions that would 'return' values
+
+// Get item name by ID - Stores result in GLOBAL_LAST_LOOKUP_RESULT_NAME
+fun get_item_name_by_id(id) {
+    var i = 0;
+    var found_in_loop = false; // Flag to stop processing after finding
+    while (i < ITEM_DEFS_COUNT) {
+        var def_item = item_defs[i];
+        if (def_item != nil) {
+            if (found_in_loop == false) { // Only process if not already found in this loop
+                if (def_item[0] == id) {
+                    GLOBAL_LAST_LOOKUP_RESULT_NAME = def_item[1];
+                    found_in_loop = true; // Set flag to true
+                }
+            }
+        }
+        i = i + 1;
+    }
+    if (found_in_loop == false) { // Only update if no item was found
+        GLOBAL_LAST_LOOKUP_RESULT_NAME = "Unknown Item";
+    }
+    // No explicit return statement. Implicitly returns nil.
+}
+
+// Get enemy name by ID - Stores result in GLOBAL_LAST_LOOKUP_RESULT_NAME
+fun get_enemy_name(id) {
+    var i = 0;
+    var found_in_loop = false; // Flag to stop processing after finding
+    while (i < ITEM_DEFS_COUNT) {
+        var def_item = item_defs[i];
+        if (def_item != nil) {
+            if (found_in_loop == false) { // Only process if not already found in this loop
+                if (def_item[0] == id) {
+                    GLOBAL_LAST_LOOKUP_RESULT_NAME = def_item[1];
+                    found_in_loop = true; // Set flag to true
+                }
+            }
+        }
+        i = i + 1;
+    }
+    if (found_in_loop == false) { // Only update if no item was found
+        GLOBAL_LAST_LOOKUP_RESULT_NAME = "Unknown Enemy";
+    }
+    // No explicit return statement. Implicitly returns nil.
+}
+
+// Add item to player inventory
+// Manages quantity, updates existing entries or adds to first nil slot.
+fun add_item_to_inventory(item_id_to_add, quantity_to_add) {
+    var i = 0;
+    var found_stack_and_handled = false; // Flag to track if logic for stacking was handled
+
+    // Pass 1: Try to find existing stack and handle it
+    while (i < INVENTORY_CAP) {
+        var inv_slot = player_inventory[i];
+        if (inv_slot != nil) {
+            if (found_stack_and_handled == false) { // Only execute if we haven't already handled a stack
+                if (inv_slot[0] == item_id_to_add) {
+                    inv_slot[1] = inv_slot[1] + quantity_to_add; // Update quantity in place
+                    found_stack_and_handled = true; // Mark as handled
+                    get_item_name_by_id(item_id_to_add); // Call to update GLOBAL_LAST_LOOKUP_RESULT_NAME
+                    print "  Added " + quantity_to_add + " " + GLOBAL_LAST_LOOKUP_RESULT_NAME + " (stacked)!";
+                }
+            }
+        }
+        i = i + 1;
+    }
+
+    // Pass 2: If no stack was found and handled, try to find first nil slot
+    if (found_stack_and_handled == false) {
+        var first_nil_slot_found = -1;
+        var j = 0; // Use a new loop variable for second pass
+        while (j < INVENTORY_CAP) {
+            if (player_inventory[j] == nil) {
+                if (first_nil_slot_found == -1) { // Find the first empty slot
+                    first_nil_slot_found = j;
+                }
+            }
+            j = j + 1;
+        }
+
+        if (first_nil_slot_found != -1) { // If an empty slot was found
+            player_inventory[first_nil_slot_found] = [item_id_to_add, quantity_to_add];
+            get_item_name_by_id(item_id_to_add); // Call to update GLOBAL_LAST_LOOKUP_RESULT_NAME
+            print "  Added " + quantity_to_add + " " + GLOBAL_LAST_LOOKUP_RESULT_NAME + "!";
+        } else {
+            print "  Inventory is full! Cannot add more items.";
+        }
+    }
+}
+
+// Remove item from player inventory
+// Reduces quantity or sets slot to nil if quantity drops to 0 or less
+fun remove_item_from_inventory(item_id_to_remove, quantity_to_remove) {
+    var i = 0;
+    var found_and_handled = false; // Flag to track if logic for removal was handled
+
+    while (i < INVENTORY_CAP) {
+        var inv_slot = player_inventory[i];
+        if (inv_slot != nil) {
+            if (found_and_handled == false) { // Only process if not already handled
+                if (inv_slot[0] == item_id_to_remove) {
+                    found_and_handled = true; // Mark as handled
+                    var new_qty = inv_slot[1] - quantity_to_remove;
+                    if (new_qty <= 0) {
+                        player_inventory[i] = nil; // Set slot to nil (remove item)
+                        get_item_name_by_id(item_id_to_remove); // Update lookup name for print
+                        print "  Removed all " + GLOBAL_LAST_LOOKUP_RESULT_NAME + ".";
+                    } else {
+                        inv_slot[1] = new_qty; // Update quantity
+                        get_item_name_by_id(item_id_to_remove); // Update lookup name for print
+                        print "  Removed " + quantity_to_remove + " " + GLOBAL_LAST_LOOKUP_RESULT_NAME + ". Remaining: " + new_qty;
+                    }
+                }
+            }
+        }
+        i = i + 1;
+    }
+
+    if (found_and_handled == false) { // If no item was found and handled
+        get_item_name_by_id(item_id_to_remove); // Update lookup name for print
+        print "  You don't have " + GLOBAL_LAST_LOOKUP_RESULT_NAME + ".";
+    }
+}
+
+// Display player's current inventory
+fun display_inventory() {
+    print "--- Your Inventory ---";
+    var empty_count = 0;
+    var i = 0;
+    while (i < INVENTORY_CAP) {
+        var inv_slot = player_inventory[i];
+        if (inv_slot != nil) {
+            var item_id = inv_slot[0];
+            var quantity = inv_slot[1];
+            get_item_name_by_id(item_id); // Call to update GLOBAL_LAST_LOOKUP_RESULT_NAME
+            print "  - " + GLOBAL_LAST_LOOKUP_RESULT_NAME + " (x" + quantity + ")";
+        } else {
+            empty_count = empty_count + 1;
+        }
+        i = i + 1;
+    }
+    if (empty_count == INVENTORY_CAP) { // If all slots are nil
+        print "  Inventory is empty.";
+    }
+    print "----------------------";
+}
+
+// Simulate changing enemy (for simplicity)
+fun set_next_enemy(action_count) {
+    if (action_count == 3) {
+        current_enemy_id = 101; // Dragon
+    } else if (action_count == 6) {
+        current_enemy_id = 100; // Goblin
+    }
+    // No explicit return statement.
+}
+
+
+// --- Global Game State & Constants (MOVED BELOW FUNCTION DECLARATIONS) ---
+
+var game_active = true;
+var player_hp = 10;
+var current_enemy_id = 0; // 0: Goblin, 1: Dragon
+
+// Player Inventory: Fixed size of 10 slots, initialized with nil.
+// Format: [[item_id, quantity], ...] or nil for empty slots.
+var player_inventory = [
+    nil, nil, nil, nil, nil,
+    nil, nil, nil, nil, nil
+];
+var INVENTORY_CAP = 10; // Max number of unique item stacks
+
+// Item Definitions (simulating a dictionary with lists and lookups)
+// Format: [[id, "name", "description"], ...]
+var item_defs = [
+    [0, "Coins", "Shiny gold pieces."],
+    [1, "Sword", "A sharp blade for adventurers."],
+    [2, "Potion", "Restores a small amount of health."],
+    [100, "Goblin", "A small, mischievous creature."],
+    [101, "Dragon", "A massive, fire-breathing beast."]
+];
+var ITEM_DEFS_COUNT = 5; // Fixed count for item_defs for looping
+
+
+// --- Main Game Loop ---
+
+print "--- Starting MyPi Adventure Game! ---";
+print "Welcome, brave adventurer!";
+print "Commands: 'status', 'inventory', 'attack', 'heal', 'steal', 'drop', 'quit'.";
+print "-----------------------------------";
+
+// Give player a starting item
+add_item_to_inventory(1, 1); // Sword (ID 1, 1 qty)
+add_item_to_inventory(2, 2); // 2 Potions (ID 2, 2 qty)
+
+var action_count = 0;
+current_enemy_id = 100; // Start with Goblin
+
+while (game_active) {
+    print "\n--- Turn " + action_count + " ---";
+    get_enemy_name(current_enemy_id); // Call to update GLOBAL_LAST_LOOKUP_RESULT_NAME
+    print "HP: " + player_hp + ". Facing: " + GLOBAL_LAST_LOOKUP_RESULT_NAME + ".";
+    var action = input("What do you do? ");
+
+    if (action == "status") {
+        print "  Current HP: " + player_hp;
+        display_inventory();
+    } else if (action == "inventory") {
+        display_inventory();
+    } else if (action == "attack") {
+        player_hp = player_hp - 3;
+        print "  You attacked! HP: " + player_hp;
+        if (player_hp <= 0) {
+            print "  Game Over! You were defeated.";
+            game_active = false;
+        }
+    } else if (action == "heal") {
+        var potion_id = 2; // Potion ID
+        var has_potion = false;
+        var i = 0;
+        while(i < INVENTORY_CAP){ // Check if player has potion
+            var inv_slot = player_inventory[i];
+            if (inv_slot != nil) { // Check only if slot is not nil
+                if (inv_slot[0] == potion_id) {
+                    if (inv_slot[1] > 0) {
+                        has_potion = true;
+                    }
+                }
+            }
+            i = i + 1;
+        }
+
+        if (has_potion) {
+            player_hp = player_hp + 5;
+            if (player_hp > 10) { player_hp = 10; } // Cap HP
+            print "  You used a Potion! HP: " + player_hp;
+            remove_item_from_inventory(potion_id, 1);
+        } else {
+            print "  You don't have any Potions!";
+        }
+    } else if (action == "steal") {
+        get_enemy_name(current_enemy_id); // Update GLOBAL_LAST_LOOKUP_RESULT_NAME for print
+        print "  Attempting to steal from " + GLOBAL_LAST_LOOKUP_RESULT_NAME + "...";
+        if (current_enemy_id == 100) { // Goblin (ID 100)
+            add_item_to_inventory(0, 10); // Steal 10 Coins (ID 0)
+        } else if (current_enemy_id == 101) { // Dragon (ID 101)
+            player_hp = player_hp - 1; // Dragon attacks back
+            print "  There is nothing to steal from a Dragon! It retaliates!";
+            if (player_hp <= 0) { // Check if defeated by retaliation
+                print "  Game Over! You were defeated by the Dragon's retaliation.";
+                game_active = false;
+            }
+        } else {
+            print "  Can't steal from this enemy.";
+        }
+    } else if (action == "drop") {
+        display_inventory();
+        print "  -----------------------------------";
+        var item_id_str = input("  Enter ID of item to drop (e.g., 0 for Coins, 1 for Sword): ");
+        var item_id_to_drop = item_id_str + 0; // Simple string to number conversion (e.g., "10" + 0 = 10)
+        var qty_str = input("  Enter quantity to drop: ");
+        var quantity_to_drop = qty_str + 0; // Simple string to number conversion
+
+        remove_item_from_inventory(item_id_to_drop, quantity_to_drop);
+    } else if (action == "quit") {
+        game_active = false;
+        print "  Quitting game.";
+    } else {
+        print "  Invalid command. Available: status, inventory, attack, heal, steal, drop, quit.";
+    }
+
+    // Simulate enemy change every few turns for variety
+    action_count = action_count + 1;
+    set_next_enemy(action_count);
+
+    if (game_active == false) { // Game ends, so no more HP display or turn counter
+        print "--- Game Over ---";
+    }
+}
+print "Demo session ended.";
